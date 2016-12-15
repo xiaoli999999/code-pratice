@@ -17,9 +17,10 @@ object ImplicitDemo {
 		display(12)
 		display(true)
 		display2(1)
-		display2("1")
+		display2(typeConvertor2("1"))
 		val a = new A("asd")
-		a.ddd
+		println("基数输出 ")
+		List(1, 2, 3, 4, 5, 6, 7).foreach(e => if(e%2!=0) println(e))
   }
 }
 /***********
