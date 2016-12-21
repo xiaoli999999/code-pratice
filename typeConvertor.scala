@@ -21,6 +21,10 @@ object ImplicitDemo {
 		val a = new A("asd")
 		println("基数输出 ")
 		List(1, 2, 3, 4, 5, 6, 7).foreach(e => if(e%2!=0) println(e))
+		var sum = 0
+		Set(12,33,445,663).foreach(e => 
+								   sum+=e)
+		println(sum)
   }
 }
 /***********
