@@ -10,7 +10,20 @@ import java.io._
 case class RequestInfo(body: String, warste: Long)
 
 object ConnectTest extends App {
-
+	/*connectTest [num_loop] [url]*/
+	val configuration = args: Array[String]
+	
+	
+	if(configuration.length<2) {
+		println("error: 命令行的参数小于2个")
+		System.exit(0)
+	}else{
+		println("命令行获取成功")
+		println("开始统计")
+	}
+	val num_loop = configuration(0).toInt
+	val url = configuration(1)
+	
 	try {
 		val writer = new PrintWriter(new File("./result.txt"))
 
@@ -22,7 +35,7 @@ object ConnectTest extends App {
 				def run() = {
 					val html = Future {
 						val t1 = new Date()
-						val body = Source.fromURL(new URL("http://127.0.0.1:9000/66?isDebug=true"), "UTF-8").getLines().mkString("\n")
+						val body = Source.fromURL(new URL(url), "UTF-8").getLines().mkString("\n")
 						val t2 = new Date()
 						RequestInfo(body, t2.getTime - t1.getTime)
 					}
@@ -40,7 +53,7 @@ object ConnectTest extends App {
 		Await.result({
 			val t3 = new Date()
 
-			(1 to 1000).foldLeft(Future successful List.empty[Future[RequestInfo]]) { (k, t) =>
+			(1 to num_loop).foldLeft(Future successful List.empty[Future[RequestInfo]]) { (k, t) =>
 				for {
 					task <- task1(t)
 					each <- k
