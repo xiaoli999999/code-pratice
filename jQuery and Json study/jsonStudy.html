@@ -10,16 +10,20 @@ var result2 = $.parseJSON( '{\
     "details": [\
         {\
             "Name": "冯提莫",\
-            "Company": "斗鱼"\
+            "Company": "斗鱼",\
+			"urls":[{"name":"【冯提莫】让你耳朵怀孕,冯提莫翻唱合集，持续更新中～","link":"https://www.bilibili.com/video/av8157136/?from=search&seid=2235870306256017986"},\
+					{"name":"冯提莫：告白气球","link":"https://www.bilibili.com/video/av10390613/?from=search&seid=10600239245419020698"}\
+				   ]\
         },\
         {\
             "Name": "静静",\
-            "Company": "bilibili"\
+            "Company": "bilibili",\
+			"urls":[]\
         }\
     ]\
 }');
 
-result2.details.push($.parseJSON( '{"Name":"言生生","Company":"bilibili"}'));
+result2.details.push($.parseJSON( '{"Name":"言生生","Company":"bilibili","urls":[]}'));
 //result2.details[2].Company = 'bilibili';
 
 console.log(result2.details);
@@ -32,7 +36,26 @@ $(document).ready(function(){
 		console.log($buttonChooses);
 		//$("div#json")[0].innerHTML = JSON.stringify(result2.details[$buttonChooses-1]);
 		$("div#json").html(JSON.stringify(result2.details[$buttonChooses-1]));
-		$("a#l1").attr("href","http://www.bilibili.tv");
+		
+		
+		
+		$link_num = result2.details[$buttonChooses-1].urls.length;
+		
+		console.log("$link_num="+$link_num);
+		
+		if($link_num>0){
+		
+			$("div[name='show lists']").append("<h1>内容</h1><br />");
+			$.each(result2.details[$buttonChooses-1].urls,function(index,item){
+				$append_content = "<a href='"+item.link+"'>"+item.name+"</a><br />"; //JSON.stringify(item)
+				console.log($append_content+"append!");
+				$("div[name='show lists']").append($append_content);
+			});
+			
+		}else{
+			$("div[name='show lists']").empty();
+		}
+			
 	});
 });
 
@@ -41,8 +64,7 @@ $(document).ready(function(){
 </script>
 
 <div id="json"></div>
-<a href="#" id="l1">click1</a>
-<a href="#" id="l2">click2</a>
+<div name="show lists"></div>
 <button>历遍json</button>
 </body>
 </html>
