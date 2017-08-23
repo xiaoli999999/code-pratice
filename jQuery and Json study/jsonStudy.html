@@ -1,0 +1,48 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<script type="text/javascript" src="jquery-3.2.1.min.js"></script>
+</head>
+<body>
+<script>
+var result2 = $.parseJSON( '{\
+    "title": "favourite recorders",\
+    "details": [\
+        {\
+            "Name": "冯提莫",\
+            "Company": "斗鱼"\
+        },\
+        {\
+            "Name": "静静",\
+            "Company": "bilibili"\
+        }\
+    ]\
+}');
+
+result2.details.push($.parseJSON( '{"Name":"言生生","Company":"bilibili"}'));
+//result2.details[2].Company = 'bilibili';
+
+console.log(result2.details);
+
+$buttonChooses = 0;
+$(document).ready(function(){
+	//$("div#json")[0].innerHTML = JSON.stringify(result2);
+	$("button").click(function(){
+		$buttonChooses = ($buttonChooses) % result2.details.length +1;
+		console.log($buttonChooses);
+		//$("div#json")[0].innerHTML = JSON.stringify(result2.details[$buttonChooses-1]);
+		$("div#json").html(JSON.stringify(result2.details[$buttonChooses-1]));
+		$("a#l1").attr("href","http://www.bilibili.tv");
+	});
+});
+
+
+
+</script>
+
+<div id="json"></div>
+<a href="#" id="l1">click1</a>
+<a href="#" id="l2">click2</a>
+<button>历遍json</button>
+</body>
+</html>
